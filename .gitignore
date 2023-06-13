@@ -1,0 +1,58 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+
+# Built application files
+*.apk
+*.ap_
+
+# Compiled JNI libraries
+*/obj/
+*/libs/
+
+
+# Gradle generated files
+.gradle/
+/build/
+
+# Android Studio generated files
+.idea/
+.captures/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Signing files
+*.store
+*.key
+
+# Crashlytics configuration file (if using Crashlytics for crash reporting)
+fabric.properties
+
+# NDK (Native Development Kit)
+# Uncomment if you're using NDK in your project
+# jni/
+# ndk/
+
+# ProGuard files
+# Uncomment if using ProGuard in your project
+# /proguard/
+
+# Log files
+*.log

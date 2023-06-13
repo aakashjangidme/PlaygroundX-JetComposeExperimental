@@ -4,6 +4,7 @@ plugins {
     //
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -51,10 +52,15 @@ android {
         }
     }
 
-    // Remove mockRelease as it's not needed.
+    // Remove mockRelease, developmentRelease, productionDebug as it's not needed.
     android.variantFilter { variant ->
-        if (variant.buildType.name == 'release'
-                && variant.getFlavors().get(0).name == 'mock') {
+        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'mock') {
+            variant.setIgnore(true)
+        }
+        if (variant.buildType.name == 'debug' && variant.getFlavors().get(0).name == 'production') {
+            variant.setIgnore(true)
+        }
+        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'development') {
             variant.setIgnore(true)
         }
     }
@@ -151,6 +157,12 @@ dependencies {
     //================= === Coroutines ====================
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+
+    //================= === Firebase ====================
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
 }
 

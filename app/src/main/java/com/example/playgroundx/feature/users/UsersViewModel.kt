@@ -6,7 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playgroundx.core.common.Resource
+import com.example.playgroundx.domain.usecase.GetCurrentUserUseCase
 import com.example.playgroundx.domain.usecase.GetUsersUseCase
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,13 +25,16 @@ sealed class UIEvent {
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(
-    private val useCase: GetUsersUseCase
+    private val useCase: GetUsersUseCase,
+    private val getCurrentUser: GetCurrentUserUseCase,
 ) : ViewModel() {
 
     //state will be accessed by UI
     private val _state = mutableStateOf(UsersUiState())
     var state: State<UsersUiState> = _state
 
+    val currentUser: FirebaseUser?
+        get() = getCurrentUser()
 
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()

@@ -24,6 +24,7 @@ object DatabaseModule {
     }
 
     @Provides
+    @Singleton
     fun provideUsersDao(database: AppDatabase): UserDao = database.userDao
 
 }

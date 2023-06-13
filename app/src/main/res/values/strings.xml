@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">PlaygroundX JetCompose</string>
     <string name="please_check_network_connection">Please check your network connection</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="signup">signup</string>
+    <string name="username">username</string>
+    <string name="new_user_sign_up">New User? Sign Up</string>
+    <string name="already_have_an_account">Already have an account? Sign In</string>
 </resources>

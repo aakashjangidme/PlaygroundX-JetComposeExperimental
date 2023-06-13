@@ -12,19 +12,26 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,9 +49,11 @@ fun UsersScreen(
 ) {
     val uiState = viewModel.state.value
     val uiEvent = viewModel.eventFlow
+    val currentUser = viewModel.currentUser!!
 
-//    val scope = rememberCoroutineScope()
+
     val snackbarHostState = remember { SnackbarHostState() }
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
 
     LaunchedEffect(key1 = uiEvent) {
@@ -57,18 +66,21 @@ fun UsersScreen(
         }
     }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
-        },
-    ) {
+    Scaffold(modifier = Modifier
+        .fillMaxSize()
+        .statusBarsPadding()
+        .nestedScroll(scrollBehavior.nestedScrollConnection), snackbarHost = {
+        SnackbarHost(hostState = snackbarHostState)
+    }, topBar = {
+        TopBar(
+            currentUser.displayName.toString(), currentUser.photoUrl.toString(), scrollBehavior
+        )
+    }) {
         Box(
             modifier = Modifier
-                .statusBarsPadding()
+//                .statusBarsPadding()
                 .fillMaxSize()
         ) {
-
             if (uiState.list.isEmpty()) {
                 Text(
                     "Oops, It's empty here.",
@@ -79,6 +91,7 @@ fun UsersScreen(
                         .padding(horizontal = 20.dp)
                 )
             } //Text
+
 
             LazyColumn {
                 items(uiState.list) { item ->
@@ -114,4 +127,32 @@ fun UserItem(item: User, onUserClick: (String) -> Unit) {
             color = MaterialTheme.colorScheme.onBackground
         )
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBar(
+    title: String,
+    avatar: String,
+    scrollBehavior: TopAppBarScrollBehavior?,
+    modifier: Modifier = Modifier
+) {
+    TopAppBar(title = {
+        Row(
+            modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            AsyncImage(
+                modifier = Modifier.size(40.dp), model = avatar, contentDescription = null
+            )
+
+            Text(title)
+        }
+    }, actions = {
+        IconButton(onClick = {/* Do Something*/ }) {
+            Icon(Icons.Filled.Settings, null)
+        }
+    }, scrollBehavior = scrollBehavior)
+
 }

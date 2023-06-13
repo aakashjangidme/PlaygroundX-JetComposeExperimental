@@ -17,7 +17,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class UsersRepositoryImpl @Inject constructor(
-    private val usersApi: UsersApi, private val database: AppDatabase
+    private val usersApi: UsersApi, private val database: AppDatabase,
 ) : UsersRepository {
 
     private val _getCachedUsers = database.userDao.observeAllUsers().map { it.toNetwork() }

@@ -7,12 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.playgroundx.core.common.Screens
-import com.example.playgroundx.feature.feed.FeedsScreen
-import com.example.playgroundx.feature.splash.SplashScreen
 import com.example.playgroundx.feature.authentication.AuthViewModel
 import com.example.playgroundx.feature.authentication.LoginScreen
 import com.example.playgroundx.feature.authentication.SignUpScreen
+import com.example.playgroundx.feature.feed.FeedsScreen
 import com.example.playgroundx.feature.profile.ProfileScreen
+import com.example.playgroundx.feature.search.SearchScreen
+import com.example.playgroundx.feature.splash.SplashScreen
 
 
 object Argument {
@@ -69,7 +70,7 @@ fun PlaygroundXNavHost() {
         } //SignUpScreen
 
         composable(Screens.ProfileScreen.route) { backStackEntry ->
-            ProfileScreen(onClickSignOut = {
+            ProfileScreen(navController, onClickSignOut = {
                 authViewModel.signOut();
                 if (backStackEntry.lifecycle.currentState == Lifecycle.State.RESUMED) {
                     navController.navigate(Screens.SplashScreen.route) {
@@ -80,7 +81,7 @@ fun PlaygroundXNavHost() {
         } //ProfileScreen
 
         composable(Screens.FeedsScreen.route) { backStackEntry ->
-            FeedsScreen(onClickSignOut = {
+            FeedsScreen(navController, onClickSignOut = {
                 authViewModel.signOut();
                 if (backStackEntry.lifecycle.currentState == Lifecycle.State.RESUMED) {
                     navController.navigate(Screens.SplashScreen.route) {
@@ -96,27 +97,10 @@ fun PlaygroundXNavHost() {
         } //FeedsScreen
 
 
-        /*
-                composable(Destinations.ROUTE_USER) { backStackEntry ->
-                    //TODO: can implement Route Composable, and then handle ROUTING logic
-                    UsersScreen(onUserClick = { username ->
-                        // In order to discard duplicated navigation events, we check the Lifecycle
-                        if (backStackEntry.lifecycle.currentState == Lifecycle.State.RESUMED) {
-                            navController.navigate("${Destinations.ROUTE_DETAIL}/$username")
-                        }
-                    })
-                } //UsersScreen
+        composable(Screens.SearchScreen.route) { backStackEntry ->
+            SearchScreen(navController = navController)
+        } //SearchScreen
 
-                composable(
-                    route = "${Destinations.ROUTE_DETAIL}/{${Argument.USERNAME}}",
-                    arguments = listOf(navArgument(Argument.USERNAME) {
-                        type = NavType.StringType
-                    }),
-                ) {
-                    DetailsScreen()
-                }  //DetailsScreen
-
-                */
     }
 
 }

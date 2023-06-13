@@ -1,6 +1,10 @@
 package com.example.playgroundx.di
 
 import com.example.playgroundx.domain.repository.AuthRepository
+import com.example.playgroundx.domain.repository.UserRepository
+import com.example.playgroundx.domain.usecase.userUseCases.GetUserDetails
+import com.example.playgroundx.domain.usecase.userUseCases.SetUserDetails
+import com.example.playgroundx.domain.usecase.userUseCases.UserUseCases
 import com.example.playgroundx.domain.usecase.auth.AuthUseCase
 import com.example.playgroundx.domain.usecase.auth.CurrentAuthUser
 import com.example.playgroundx.domain.usecase.auth.FirebaseAuthState
@@ -43,6 +47,13 @@ object AppModule {
         firebaseSignIn = FirebaseSignIn(repository = repository),
         firebaseSignUp = FirebaseSignUp(repository = repository),
         currentAuthUser = CurrentAuthUser(repository = repository)
+    )
+
+    @Singleton
+    @Provides
+    fun provideUserUseCases(repository: UserRepository) = UserUseCases(
+        getUserDetails = GetUserDetails(repository = repository),
+        setUserDetails = SetUserDetails(repository = repository)
     )
 
 }

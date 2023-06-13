@@ -4,6 +4,8 @@ import com.example.playgroundx.domain.repository.AuthRepository
 import com.example.playgroundx.domain.repository.AuthRepositoryImpl
 import com.example.playgroundx.domain.repository.DetailsRepository
 import com.example.playgroundx.domain.repository.DetailsRepositoryImpl
+import com.example.playgroundx.domain.repository.UserRepository
+import com.example.playgroundx.domain.repository.UserRepositoryImpl
 import com.example.playgroundx.domain.repository.UsersRepository
 import com.example.playgroundx.domain.repository.UsersRepositoryImpl
 import dagger.Binds
@@ -18,7 +20,7 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindUserRepository(impl: UsersRepositoryImpl): UsersRepository
+    abstract fun bindUsersRepository(impl: UsersRepositoryImpl): UsersRepository
 
     @Binds
     @Singleton
@@ -27,5 +29,9 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindAuthRepository(impl: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 
 }

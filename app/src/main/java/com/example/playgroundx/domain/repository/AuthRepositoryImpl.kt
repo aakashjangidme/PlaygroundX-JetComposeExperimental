@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
 ) : AuthRepository {
     var operationSuccessful: Boolean = false
 
@@ -75,23 +75,21 @@ class AuthRepositoryImpl @Inject constructor(
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
                 operationSuccessful = true
             }.await()
+
             if (operationSuccessful) {
                 val userid = auth.currentUser?.uid!!
-                val obj =
-                    AppUser(
-                        userName = userName,
-                        userid = userid,
-                        password = password,
-                        email = email
-                    )
+                val obj = AppUser(
+                    userName = userName, userid = userid, password = password, email = email
+                )
                 firestore.collection(Constant.COLLECTION_NAME_USERS).document(userid).set(obj)
                     .addOnSuccessListener {}
                 emit(Resource.Success(operationSuccessful))
             } else {
-                Resource.Success(operationSuccessful)
+                emit(Resource.Error("Something went wrong while creating the user."))
             }
+
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: "An Unexpected Error"))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }

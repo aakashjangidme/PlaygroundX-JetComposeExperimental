@@ -62,3 +62,9 @@ val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFFD9B9FF)
 
 val seed = Color(0xFF8100EF)
+
+val Purple500 = Color(0xFF6200EE)
+val blue = Color(0xFF5851DB)
+val orange = Color(0xFFF56040)
+val yellow = Color(0xFFFCAF45)
+val instagramGradient = listOf(blue, Purple500, orange, yellow)

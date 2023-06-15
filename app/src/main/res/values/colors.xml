@@ -2,5 +2,10 @@
 <resources>
     <color name="splash_screen_background">#034565</color>
     <color name="logo_background">#034565</color>
-    <color name="white">#FFFFFF</color>
+    <color name="medium_orange">#FFFFA000</color>
+    <color name="light_orange">#FFFFCA28</color>
+    <color name="dark_orange">#FFF57C00</color>
+    <color name="bright_orange">#FFFF8A65</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

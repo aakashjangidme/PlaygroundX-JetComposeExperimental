@@ -1,6 +1,6 @@
 package com.example.playgroundx.domain.repository
 
-import com.example.playgroundx.core.common.Resource
+import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.model.User
 import kotlinx.coroutines.flow.Flow
 

@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.playgroundx.R
 import com.example.playgroundx.domain.model.DataDummy
-import com.example.playgroundx.feature.authentication.AuthViewModel
+import com.example.playgroundx.feature.authentication.misc.AuthViewModel
 import com.example.playgroundx.feature.components.BottomNavigationItem
 import com.example.playgroundx.feature.components.BottomNavigationMenu
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +37,8 @@ fun FeedsScreen(
     onClickProfile: () -> Unit,
     viewModel: AuthViewModel = hiltViewModel(),
 ) {
-    val signOutState by viewModel.signOutState
+    val signOutState by viewModel.signOutState.collectAsStateWithLifecycle()
+
 
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = "Instagram") }, navigationIcon = {

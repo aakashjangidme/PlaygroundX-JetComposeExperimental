@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.playgroundx.core.common.Screens
+import com.example.playgroundx.common.Screens
 
 
 enum class BottomNavigationItem(val icon: ImageVector, val route: Screens) {

@@ -2,7 +2,7 @@ package com.example.playgroundx.di
 
 
 import com.example.playgroundx.BuildConfig
-import com.example.playgroundx.core.common.Constant.BASE_URL
+import com.example.playgroundx.common.Constant.BASE_URL
 import com.example.playgroundx.data.remote.DetailsApi
 import com.example.playgroundx.data.remote.UsersApi
 import dagger.Module

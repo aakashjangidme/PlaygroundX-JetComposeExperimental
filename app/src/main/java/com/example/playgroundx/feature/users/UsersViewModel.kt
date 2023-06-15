@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.playgroundx.core.common.Resource
+import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.usecase.GetCurrentUserUseCase
 import com.example.playgroundx.domain.usecase.GetUsersUseCase
 import com.google.firebase.auth.FirebaseUser

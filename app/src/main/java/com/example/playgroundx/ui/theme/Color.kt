@@ -68,3 +68,7 @@ val blue = Color(0xFF5851DB)
 val orange = Color(0xFFF56040)
 val yellow = Color(0xFFFCAF45)
 val instagramGradient = listOf(blue, Purple500, orange, yellow)
+
+val BrightOrange = Color(0xFFFF8A65)
+val MediumOrange = Color(0xFFFFA000)
+val DarkOrange = Color(0xFFF57C00)

@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playgroundx.core.Argument
-import com.example.playgroundx.core.common.Resource
+import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.model.Details
 import com.example.playgroundx.domain.usecase.GetUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

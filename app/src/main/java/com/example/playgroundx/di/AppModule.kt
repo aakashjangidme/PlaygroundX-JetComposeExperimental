@@ -2,9 +2,6 @@ package com.example.playgroundx.di
 
 import com.example.playgroundx.domain.repository.AuthRepository
 import com.example.playgroundx.domain.repository.UserRepository
-import com.example.playgroundx.domain.usecase.userUseCases.GetUserDetails
-import com.example.playgroundx.domain.usecase.userUseCases.SetUserDetails
-import com.example.playgroundx.domain.usecase.userUseCases.UserUseCases
 import com.example.playgroundx.domain.usecase.auth.AuthUseCase
 import com.example.playgroundx.domain.usecase.auth.CurrentAuthUser
 import com.example.playgroundx.domain.usecase.auth.FirebaseAuthState
@@ -12,6 +9,10 @@ import com.example.playgroundx.domain.usecase.auth.FirebaseSignIn
 import com.example.playgroundx.domain.usecase.auth.FirebaseSignOut
 import com.example.playgroundx.domain.usecase.auth.FirebaseSignUp
 import com.example.playgroundx.domain.usecase.auth.IsUserAuthenticated
+import com.example.playgroundx.domain.usecase.userUseCases.GetUserDetails
+import com.example.playgroundx.domain.usecase.userUseCases.SetUserDetails
+import com.example.playgroundx.domain.usecase.userUseCases.SetUserProfilePicture
+import com.example.playgroundx.domain.usecase.userUseCases.UserUseCases
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -53,7 +54,8 @@ object AppModule {
     @Provides
     fun provideUserUseCases(repository: UserRepository) = UserUseCases(
         getUserDetails = GetUserDetails(repository = repository),
-        setUserDetails = SetUserDetails(repository = repository)
+        setUserDetails = SetUserDetails(repository = repository),
+        setUserProfilePicture = SetUserProfilePicture(repository = repository)
     )
 
 }

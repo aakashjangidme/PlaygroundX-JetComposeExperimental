@@ -1,7 +1,7 @@
 package com.example.playgroundx.feature.details
 
 import com.example.playgroundx.domain.model.Details
-import com.example.playgroundx.core.util.formatDate
+import com.example.playgroundx.util.formatDate
 
 data class DetailsUiState(
 

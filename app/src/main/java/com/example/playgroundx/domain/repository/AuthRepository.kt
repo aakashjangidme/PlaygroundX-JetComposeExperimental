@@ -1,6 +1,6 @@
 package com.example.playgroundx.domain.repository
 
-import com.example.playgroundx.core.common.Resource
+import com.example.playgroundx.common.Resource
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
@@ -9,7 +9,9 @@ interface AuthRepository {
 
     val currentUser: FirebaseUser?
 
-    suspend fun isUserAuthenticatedInFirebase(): Boolean
+    val currentUserId: String
+
+    val isUserAuthenticatedInFirebase: Boolean
 
     suspend fun getFirebaseAuthState(): Flow<Boolean>
 
@@ -18,6 +20,6 @@ interface AuthRepository {
     suspend fun firebaseSignOut(): Flow<Resource<Boolean>>
 
     suspend fun firebaseSignUp(
-        email: String, password: String, userName: String
+        email: String, password: String, userName: String,
     ): Flow<Resource<Boolean>>
 }

@@ -1,6 +1,6 @@
 package com.example.playgroundx.domain.usecase
 
-import com.example.playgroundx.core.common.Resource
+import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.model.Details
 import com.example.playgroundx.domain.repository.DetailsRepository
 import kotlinx.coroutines.flow.Flow

@@ -12,7 +12,13 @@ class SetUserDetails @Inject constructor(
         userName: String,
         bio: String,
         websiteUrl: String,
+        phoneNumber: String,
     ) = repository.setUserDetails(
-        userid = userid, name = name, userName = userName, bio = bio, websiteUrl = websiteUrl
+        userid = userid,
+        name = name,
+        userName = userName,
+        bio = bio,
+        websiteUrl = websiteUrl,
+        phoneNumber = phoneNumber
     )
 }

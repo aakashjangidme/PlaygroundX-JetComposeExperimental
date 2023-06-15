@@ -1,13 +1,13 @@
 package com.example.playgroundx.di
 
 import com.example.playgroundx.domain.repository.AuthRepository
-import com.example.playgroundx.domain.repository.AuthRepositoryImpl
+import com.example.playgroundx.domain.repository.impl.AuthRepositoryImpl
 import com.example.playgroundx.domain.repository.DetailsRepository
-import com.example.playgroundx.domain.repository.DetailsRepositoryImpl
+import com.example.playgroundx.domain.repository.impl.DetailsRepositoryImpl
 import com.example.playgroundx.domain.repository.UserRepository
-import com.example.playgroundx.domain.repository.UserRepositoryImpl
+import com.example.playgroundx.domain.repository.impl.UserRepositoryImpl
 import com.example.playgroundx.domain.repository.UsersRepository
-import com.example.playgroundx.domain.repository.UsersRepositoryImpl
+import com.example.playgroundx.domain.repository.impl.UsersRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -31,7 +31,7 @@ class SettingsViewModel @Inject constructor(
 
     fun onClickSignOut(openAndPopUp: (String, String) -> Unit) {
         launchCatching {
-            authUseCase.firebaseSignOut().collect()
+            authUseCase.signOut().collect()
             openAndPopUp(Screens.SplashScreen.route, Screens.SettingsScreen.route)
         }
     }

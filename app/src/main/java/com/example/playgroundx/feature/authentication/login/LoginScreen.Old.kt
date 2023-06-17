@@ -45,9 +45,7 @@ fun LoginScreenOld(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
-
-    val isLoading = uiEvents.isLoading
+    val isLoading = uiState.isLoading
 
     val updatedIconResourceId = rememberUpdatedState(iconResourceId)
 
@@ -89,7 +87,7 @@ fun LoginScreenOld(
         Spacer(modifier = Modifier.spacer())
 
         BasicButton(AppText.sign_in, Modifier.basicButton(), !isLoading, action = {
-            viewModel.onSignInClick(
+            viewModel.onClickSignIn(
                 openAndPopUp
             )
         })

@@ -20,11 +20,18 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
+
+
+    @Singleton
+    @Provides
+    fun provideDispatchers(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
     @Singleton
@@ -43,10 +50,10 @@ object AppModule {
     @Provides
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCase(
         isUserAuthenticated = IsUserAuthenticated(repository = repository),
-        firebaseAuthState = FirebaseAuthState(repository = repository),
-        firebaseSignOut = FirebaseSignOut(repository = repository),
-        firebaseSignIn = FirebaseSignIn(repository = repository),
-        firebaseSignUp = FirebaseSignUp(repository = repository),
+        currentUserAuthState = FirebaseAuthState(repository = repository),
+        signOut = FirebaseSignOut(repository = repository),
+        signInWithEmailAndPassword = FirebaseSignIn(repository = repository),
+        createUserWithEmailAndPassword = FirebaseSignUp(repository = repository),
         currentAuthUser = CurrentAuthUser(repository = repository)
     )
 

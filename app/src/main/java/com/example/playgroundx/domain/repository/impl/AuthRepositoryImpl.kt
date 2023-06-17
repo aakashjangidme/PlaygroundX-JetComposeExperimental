@@ -4,7 +4,7 @@ import com.example.playgroundx.common.Constant
 import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.model.AppUser
 import com.example.playgroundx.domain.repository.AuthRepository
-import com.example.playgroundx.util.await
+import com.example.playgroundx.util.safeCall
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,9 +13,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import timber.log.Timber
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -34,7 +34,7 @@ class AuthRepositoryImpl @Inject constructor(
 
 
     @ExperimentalCoroutinesApi
-    override suspend fun getFirebaseAuthState(): Flow<Boolean> = callbackFlow {
+    override suspend fun currentUserAuthState(): Flow<Boolean> = callbackFlow {
         val authStateListener = FirebaseAuth.AuthStateListener {
             trySend(auth.currentUser == null)
         }
@@ -44,68 +44,82 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun firebaseSignIn(email: String, password: String): Flow<Resource<Boolean>> =
-        flow {
-
-            Timber.tag("AuthRepositoryImpl::Dispatchers.IO")
-                .d("Current thread: ${Thread.currentThread().name}")
-
-            operationSuccessful = false
-
-            try {
-                emit(Resource.Loading())
-                auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-                    operationSuccessful = true
-                }.await()
-                emit(Resource.Success(operationSuccessful))
-            } catch (e: Exception) {
-                emit(Resource.Error(e.localizedMessage ?: "An Unexpected Error"))
-                throw e
+    override suspend fun signInWithEmailAndPassword(
+        email: String,
+        password: String,
+    ): Resource<Boolean> {
+        return safeCall {
+            val authRes = withContext(Dispatchers.IO) {
+                auth.signInWithEmailAndPassword(email, password).await()
             }
 
-        }.flowOn(Dispatchers.IO)
-
-
-    override suspend fun firebaseSignOut(): Flow<Resource<Boolean>> = flow {
-        try {
-            emit(Resource.Loading())
-            auth.signOut()
-            emit(Resource.Success(true))
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "An Unexpected Error"))
+            Resource.Success(authRes.user!!.uid.isNotBlank())
         }
-    }.flowOn(Dispatchers.IO)
+    }
 
-    override suspend fun firebaseSignUp(
+    override suspend fun signOut(): Resource<Boolean> {
+        return safeCall {
+            auth.signOut();
+            Resource.Success(true)
+        }
+    }
+
+    override suspend fun createUserWithEmailAndPassword(
         email: String,
         password: String,
         userName: String,
-    ): Flow<Resource<Boolean>> = flow {
-        operationSuccessful = false
+    ): Resource<Boolean> {
+        return safeCall {
 
-        Timber.tag("AuthRepositoryImpl::Dispatchers.IO")
-            .d("Current thread: ${Thread.currentThread().name}")
+            val authRes = withContext(Dispatchers.IO) {
+                auth.createUserWithEmailAndPassword(email, password).await()
+            }
+
+            val userid = authRes.user!!.uid
+
+            val obj = AppUser(
+                userName = userName, userid = userid, password = password, email = email
+            )
+
+            withContext(Dispatchers.IO) {
+                firestore.collection(Constant.COLLECTION_NAME_USERS).document(userid).set(obj)
+                    .await()
+            }
+
+            Resource.Success(true)
+        }
+    }
+}
+
+
+/*
+
+override suspend fun firebaseSignIn(email: String, password: String): Flow<Resource<Boolean>> =
+    flow {
+
+        Timber.tag("firebaseSignIn").d("Current thread: ${Thread.currentThread().toString()}")
+        Timber.tag("firebaseSignIn").d("Current thread name: ${Thread.currentThread().name}")
+        Timber.tag("firebaseSignIn").d("Current thread state: ${Thread.currentThread().state}")
+        Timber.tag("firebaseSignIn")
+            .d("Current thread threadGroup: ${Thread.currentThread().threadGroup}")
+
 
         try {
             emit(Resource.Loading())
-            auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                operationSuccessful = true
-            }.await()
 
-            if (operationSuccessful) {
-                val userid = auth.currentUser?.uid!!
-                val obj = AppUser(
-                    userName = userName, userid = userid, password = password, email = email
-                )
-                firestore.collection(Constant.COLLECTION_NAME_USERS).document(userid).set(obj)
-                    .addOnSuccessListener {}
-                emit(Resource.Success(operationSuccessful))
+            val authRes = auth.signInWithEmailAndPassword(email, password).await()
+
+            if (authRes.user != null) {
+                emit(Resource.Success(true))
             } else {
-                emit(Resource.Error("Something went wrong while creating the user."))
+                emit(Resource.Error("Something went wrong while signing in the user."))
+                throw Error("Something went wrong while signing in the user.")
             }
 
         } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "An Unexpected Error"))
+            Timber.tag("firebaseSignIn").e(e)
+            emit(Resource.Error(e.message ?: "An Unexpected Error"))
         }
+
     }.flowOn(Dispatchers.IO)
-}
+*/

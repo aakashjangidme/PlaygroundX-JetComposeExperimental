@@ -57,8 +57,8 @@ fun SignUpScreen(
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
         onRepeatPasswordChange = viewModel::onRepeatPasswordChange,
-        onSignInClick = { viewModel.onSignInClick(openAndPopUp) },
-        onSignUpClick = { viewModel.onSignUpClick(openAndPopUp) })
+        onSignInClick = { viewModel.onClickSignIn(openAndPopUp) },
+        onSignUpClick = { viewModel.onClickSignUp(openAndPopUp) })
 
 }
 

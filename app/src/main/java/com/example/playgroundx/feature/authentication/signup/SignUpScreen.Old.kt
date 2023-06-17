@@ -76,11 +76,11 @@ fun SignUpScreenOld(
         )
 
         BasicButton(AppText.create_account, Modifier.basicButton(), !isLoading) {
-            viewModel.onSignUpClick(openAndPopUp)
+            viewModel.onClickSignUp(openAndPopUp)
         }
 
         BasicTextButton(AppText.already_have_an_account, Modifier.textButton(), !isLoading) {
-            viewModel.onSignInClick(openAndPopUp)
+            viewModel.onClickSignIn(openAndPopUp)
         }
 
     }

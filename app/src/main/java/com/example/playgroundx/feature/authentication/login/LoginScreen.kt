@@ -50,16 +50,13 @@ fun LoginScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
-
-    val isLoading = uiState.isLoading
 
     LoginScreenContent(
         uiState = uiState,
-        isLoading = isLoading,
+        isLoading = uiState.isLoading,
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
-        onSignInClick = { viewModel.onSignInClick(openAndPopUp) },
+        onSignInClick = { viewModel.onClickSignIn(openAndPopUp) },
         onSignUpClick = { viewModel.onSignUpClick(openAndPopUp) },
         onForgotPasswordClick = viewModel::onForgotPasswordClick,
     )

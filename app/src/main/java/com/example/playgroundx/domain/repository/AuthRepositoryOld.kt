@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 
-interface AuthRepository {
+interface AuthRepositoryOld {
 
     val currentUser: FirebaseUser?
 
@@ -13,13 +13,13 @@ interface AuthRepository {
 
     val isUserAuthenticatedInFirebase: Boolean
 
-    suspend fun currentUserAuthState(): Flow<Boolean>
+    suspend fun getFirebaseAuthState(): Flow<Boolean>
 
-    suspend fun signInWithEmailAndPassword(email: String, password: String): Resource<Boolean>
+    suspend fun firebaseSignIn(email: String, password: String): Flow<Resource<Boolean>>
 
-    suspend fun signOut(): Resource<Boolean>
+    suspend fun firebaseSignOut(): Flow<Resource<Boolean>>
 
-    suspend fun createUserWithEmailAndPassword(
+    suspend fun firebaseSignUp(
         email: String, password: String, userName: String,
-    ): Resource<Boolean>
+    ): Flow<Resource<Boolean>>
 }

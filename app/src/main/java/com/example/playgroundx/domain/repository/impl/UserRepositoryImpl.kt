@@ -3,7 +3,6 @@ package com.example.playgroundx.domain.repository.impl
 import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.model.AppUser
 import com.example.playgroundx.domain.repository.UserRepository
-import com.example.playgroundx.util.await
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -11,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import javax.inject.Inject
 

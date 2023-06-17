@@ -13,6 +13,8 @@ import com.example.playgroundx.domain.service.StorageService
 import com.example.playgroundx.domain.usecase.auth.AuthUseCase
 import com.example.playgroundx.domain.usecase.userUseCases.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Locale
 import javax.inject.Inject
 
@@ -167,8 +169,13 @@ class ProfileViewModel @Inject constructor(
     fun uploadProfilePicture(imageUri: Uri) {
 
         launchCatching {
-            val downloadUrl = storageService.uploadProfilePicture(userId, imageUri)
+
+            val downloadUrl = withContext(Dispatchers.IO) {
+                storageService.uploadProfilePicture(userId, imageUri)
+            }
+
             if (downloadUrl != null) {
+
                 userUseCases.setUserProfilePicture(userId, downloadUrl).collect() {
 
                     uiState.value = when (it) {

@@ -52,7 +52,7 @@ class AuthViewModel @Inject constructor(
 
     fun signOut() {
         viewModelScope.launch {
-            authUseCases.firebaseSignOut().collect {
+            authUseCases.signOut().collect {
                 _signOutState.value = it
                 if (it == Resource.Success(true)) {
                     _signInState.value = Resource.Success(false)
@@ -63,7 +63,7 @@ class AuthViewModel @Inject constructor(
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            authUseCases.firebaseSignIn(email = email, password = password).collect {
+            authUseCases.signInWithEmailAndPassword(email = email, password = password).collect {
                 _signInState.value = it
             }
         }
@@ -71,7 +71,7 @@ class AuthViewModel @Inject constructor(
 
     fun signUp(email: String, password: String, username: String) {
         viewModelScope.launch {
-            authUseCases.firebaseSignUp(email = email, password = password, userName = username)
+            authUseCases.createUserWithEmailAndPassword(email = email, password = password, userName = username)
                 .collect {
                     _signUpState.value = it
                 }
@@ -80,7 +80,7 @@ class AuthViewModel @Inject constructor(
 
     private fun getFirebaseAuthState() {
         viewModelScope.launch {
-            authUseCases.firebaseAuthState().collect {
+            authUseCases.currentUserAuthState().collect {
                 _firebaseAuthState.value = it
             }
         }

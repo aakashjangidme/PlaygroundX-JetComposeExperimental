@@ -2,6 +2,7 @@ package com.example.playgroundx.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.playgroundx.data.local.dao.UserDao
 import com.example.playgroundx.data.local.entity.DetailsEntity
 import com.example.playgroundx.data.local.entity.UserEntity
 

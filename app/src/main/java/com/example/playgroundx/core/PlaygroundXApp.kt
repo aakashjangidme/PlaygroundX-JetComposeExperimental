@@ -25,9 +25,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.playgroundx.common.Screens
-import com.example.playgroundx.common.snackbar.SnackbarManager
-import com.example.playgroundx.feature.composables.PermissionDialog
-import com.example.playgroundx.feature.composables.RationaleDialog
+import com.example.playgroundx.util.snackbar.SnackbarManager
+import com.example.playgroundx.presentation.composables.PermissionDialog
+import com.example.playgroundx.presentation.composables.RationaleDialog
 import com.example.playgroundx.ui.theme.PlaygroundXJetComposeTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted

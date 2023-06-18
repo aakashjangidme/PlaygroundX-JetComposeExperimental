@@ -2,8 +2,8 @@ package com.example.playgroundx.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.playgroundx.common.snackbar.SnackbarManager
-import com.example.playgroundx.common.snackbar.SnackbarMessage.Companion.toSnackbarMessage
+import com.example.playgroundx.util.snackbar.SnackbarManager
+import com.example.playgroundx.util.snackbar.SnackbarMessage.Companion.toSnackbarMessage
 import com.example.playgroundx.domain.service.LogService
 
 import kotlinx.coroutines.CoroutineExceptionHandler

@@ -1,7 +1,6 @@
 package com.example.playgroundx.domain.service.impl
 
 import android.net.Uri
-import com.example.playgroundx.domain.repository.AuthRepository
 import com.example.playgroundx.domain.service.StorageService
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -9,7 +8,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class StorageServiceImpl @Inject constructor(
-    private val firebaseStorage: FirebaseStorage, auth: AuthRepository,
+    private val firebaseStorage: FirebaseStorage,
 ) : StorageService {
 
     override suspend fun uploadProfilePicture(userId: String, imageUri: Uri): String? {

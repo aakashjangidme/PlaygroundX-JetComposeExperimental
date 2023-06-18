@@ -3,12 +3,12 @@ package com.example.playgroundx.core
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.playgroundx.common.Screens
-import com.example.playgroundx.feature.authentication.login.LoginScreen
-import com.example.playgroundx.feature.authentication.signup.SignUpScreen
-import com.example.playgroundx.feature.profile.ProfileScreen
-import com.example.playgroundx.feature.profile.edit.ProfileEditScreen
-import com.example.playgroundx.feature.settings.SettingsScreen
-import com.example.playgroundx.feature.splash.SplashScreen
+import com.example.playgroundx.presentation.feature.authentication.login.LoginScreen
+import com.example.playgroundx.presentation.feature.authentication.signup.SignUpScreen
+import com.example.playgroundx.presentation.feature.profile.ProfileScreen
+import com.example.playgroundx.presentation.feature.profile.edit.ProfileEditScreen
+import com.example.playgroundx.presentation.feature.settings.SettingsScreen
+import com.example.playgroundx.presentation.feature.splash.SplashScreen
 
 
 fun NavGraphBuilder.playgroundXNavGraph(appState: PlaygroundXAppState) {

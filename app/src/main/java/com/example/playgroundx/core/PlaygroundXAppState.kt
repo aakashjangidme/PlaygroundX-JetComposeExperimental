@@ -7,8 +7,8 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.example.playgroundx.R
-import com.example.playgroundx.common.snackbar.SnackbarManager
-import com.example.playgroundx.common.snackbar.SnackbarMessage.Companion.toMessage
+import com.example.playgroundx.util.snackbar.SnackbarManager
+import com.example.playgroundx.util.snackbar.SnackbarMessage.Companion.toMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch

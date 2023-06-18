@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.playgroundx.common.ext.basicButton
 import com.example.playgroundx.common.iconResourceId
-import com.example.playgroundx.feature.components.BasicButton
+import com.example.playgroundx.feature.composables.BasicButton
 import com.example.playgroundx.R.string as AppText
 
 

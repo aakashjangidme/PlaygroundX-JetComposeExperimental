@@ -7,5 +7,5 @@ class CurrentAuthUser @Inject constructor(
     private val repository: AuthRepository
 ) {
     operator fun invoke() =
-        repository.currentUser;
+        repository.currentUser
 }

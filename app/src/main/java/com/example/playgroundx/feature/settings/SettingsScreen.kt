@@ -26,8 +26,8 @@ import com.example.playgroundx.common.ext.basicButton
 import com.example.playgroundx.common.ext.smallSpacer
 import com.example.playgroundx.common.ext.spacer
 import com.example.playgroundx.common.ext.textModifier
-import com.example.playgroundx.feature.components.BasicButton
-import com.example.playgroundx.feature.components.BasicToolbar
+import com.example.playgroundx.feature.composables.BasicButton
+import com.example.playgroundx.feature.composables.BasicToolbar
 import com.example.playgroundx.util.getVersionInfo
 
 

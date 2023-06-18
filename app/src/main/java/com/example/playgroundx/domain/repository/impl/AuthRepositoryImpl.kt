@@ -22,7 +22,6 @@ class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
 ) : AuthRepository {
-    var operationSuccessful: Boolean = false
 
     override val currentUser: FirebaseUser?
         get() = auth.currentUser
@@ -59,7 +58,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun signOut(): Resource<Boolean> {
         return safeCall {
-            auth.signOut();
+            auth.signOut()
             Resource.Success(true)
         }
     }
@@ -90,36 +89,3 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 }
-
-
-/*
-
-override suspend fun firebaseSignIn(email: String, password: String): Flow<Resource<Boolean>> =
-    flow {
-
-        Timber.tag("firebaseSignIn").d("Current thread: ${Thread.currentThread().toString()}")
-        Timber.tag("firebaseSignIn").d("Current thread name: ${Thread.currentThread().name}")
-        Timber.tag("firebaseSignIn").d("Current thread state: ${Thread.currentThread().state}")
-        Timber.tag("firebaseSignIn")
-            .d("Current thread threadGroup: ${Thread.currentThread().threadGroup}")
-
-
-        try {
-            emit(Resource.Loading())
-
-            val authRes = auth.signInWithEmailAndPassword(email, password).await()
-
-            if (authRes.user != null) {
-                emit(Resource.Success(true))
-            } else {
-                emit(Resource.Error("Something went wrong while signing in the user."))
-                throw Error("Something went wrong while signing in the user.")
-            }
-
-        } catch (e: Exception) {
-            Timber.tag("firebaseSignIn").e(e)
-            emit(Resource.Error(e.message ?: "An Unexpected Error"))
-        }
-
-    }.flowOn(Dispatchers.IO)
-*/

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.playgroundx.feature.components
+package com.example.playgroundx.feature.composables
 
 
 import androidx.annotation.StringRes

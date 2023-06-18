@@ -3,15 +3,15 @@ package com.example.playgroundx.domain.repository.impl
 import com.example.playgroundx.common.Resource
 import com.example.playgroundx.domain.model.AppUser
 import com.example.playgroundx.domain.repository.UserRepository
+import com.example.playgroundx.util.safeCall
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
-import timber.log.Timber
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -47,9 +47,10 @@ class UserRepositoryImpl @Inject constructor(
         bio: String,
         websiteUrl: String,
         phoneNumber: String,
-    ): Flow<Resource<Boolean>> = flow {
-        operationSuccessful = false
-        try {
+    ): Resource<Boolean> {
+
+        return safeCall {
+
             val userObj = mutableMapOf<String, String>()
 
             userObj["name"] = name
@@ -58,53 +59,32 @@ class UserRepositoryImpl @Inject constructor(
             userObj["websiteUrl"] = websiteUrl
             userObj["phoneNumber"] = phoneNumber
 
-            firebaseFirestore.collection("users").document(userid)
-                .update(userObj as Map<String, Any>).addOnSuccessListener {
-                    operationSuccessful = true
-                }.await()
-
-            if (operationSuccessful) {
-                emit(Resource.Success(operationSuccessful))
-            } else {
-                emit(Resource.Error("Edit Did Not Succeed"))
+            withContext(Dispatchers.IO) {
+                firebaseFirestore.collection("users").document(userid)
+                    .update(userObj as Map<String, Any>).await()
             }
-        } catch (e: Exception) {
 
-            emit(Resource.Error(e.localizedMessage ?: "An Unexpected Error"))
-
-            throw e
+            Resource.Success(true)
         }
-    }.flowOn(Dispatchers.IO)
+    }
 
 
     override suspend fun setUserProfilePicture(
         userid: String, imageUrl: String,
-    ): Flow<Resource<Boolean>> = flow {
-        operationSuccessful = false
-        try {
-            val userObj = mutableMapOf<String, String>()
+    ): Resource<Boolean> {
+        return safeCall {
 
-            Timber.tag("UserRepositoryImpl::userid").d(userid)
+            val userObj = mutableMapOf<String, String>()
 
             userObj["imageUrl"] = imageUrl
 
-            firebaseFirestore.collection("users").document(userid)
-                .update(userObj as Map<String, Any>).addOnSuccessListener {
-                    operationSuccessful = true
-                }.await()
-
-            if (operationSuccessful) {
-                emit(Resource.Success(operationSuccessful))
-            } else {
-                emit(Resource.Error("Could not update profile picture."))
-                throw Error("Could not update profile picture.")
+            withContext(Dispatchers.IO) {
+                firebaseFirestore.collection("users").document(userid)
+                    .update(userObj as Map<String, Any>).await()
             }
-        } catch (e: Exception) {
 
-            emit(Resource.Error(e.localizedMessage ?: "An Unexpected Error"))
-
-            throw e
+            Resource.Success(true)
         }
-    }.flowOn(Dispatchers.IO)
+    }
 
 }

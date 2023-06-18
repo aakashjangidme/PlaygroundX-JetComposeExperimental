@@ -122,7 +122,7 @@ class ProfileViewModel @Inject constructor(
             ).collect {
                 when (it) {
                     is Resource.Success -> {
-                        uiState.value = uiState.value.copy(isLoading = false);
+                        uiState.value = uiState.value.copy(isLoading = false)
                         onSuccess()
                     }
 
@@ -176,7 +176,7 @@ class ProfileViewModel @Inject constructor(
 
             if (downloadUrl != null) {
 
-                userUseCases.setUserProfilePicture(userId, downloadUrl).collect() {
+                userUseCases.setUserProfilePicture(userId, downloadUrl).collect {
 
                     uiState.value = when (it) {
                         is Resource.Success -> {

@@ -32,9 +32,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.playgroundx.R
 import com.example.playgroundx.common.ext.basicButton
 import com.example.playgroundx.common.ext.smallSpacer
-import com.example.playgroundx.feature.components.BasicButton
-import com.example.playgroundx.feature.components.BasicToolbar
-import com.example.playgroundx.feature.components.LoadingIndicator
+import com.example.playgroundx.feature.composables.BasicButton
+import com.example.playgroundx.feature.composables.BasicToolbar
+import com.example.playgroundx.feature.composables.LoadingIndicator
 import com.example.playgroundx.feature.profile.composables.ProfileImage
 
 

@@ -32,12 +32,12 @@ import com.example.playgroundx.common.ext.fieldModifier
 import com.example.playgroundx.common.ext.spacer
 import com.example.playgroundx.common.ext.textButton
 import com.example.playgroundx.common.iconResourceId
-import com.example.playgroundx.feature.components.BasicButton
-import com.example.playgroundx.feature.components.BasicTextButton
-import com.example.playgroundx.feature.components.BasicToolbar
-import com.example.playgroundx.feature.components.EmailField
-import com.example.playgroundx.feature.components.LoadingIndicator
-import com.example.playgroundx.feature.components.PasswordField
+import com.example.playgroundx.feature.composables.BasicButton
+import com.example.playgroundx.feature.composables.BasicTextButton
+import com.example.playgroundx.feature.composables.BasicToolbar
+import com.example.playgroundx.feature.composables.EmailField
+import com.example.playgroundx.feature.composables.LoadingIndicator
+import com.example.playgroundx.feature.composables.PasswordField
 import com.example.playgroundx.ui.theme.PlaygroundXJetComposeTheme
 import com.example.playgroundx.R.string as AppText
 
@@ -137,7 +137,7 @@ fun LoginScreenContent(
 @Preview(name = "Sign in light theme", uiMode = UI_MODE_NIGHT_NO)
 @Composable
 fun SignInPreview() {
-    PlaygroundXJetComposeTheme() {
+    PlaygroundXJetComposeTheme {
         LoginScreenContent(
             uiState = LoginUiState(),
             isLoading = false,

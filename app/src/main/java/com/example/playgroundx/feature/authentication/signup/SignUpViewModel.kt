@@ -75,7 +75,7 @@ class SignUpViewModel @Inject constructor(
         }
 
         launchCatching {
-            authUseCase.createUserWithEmailAndPassword(email, password, username).collect() { res ->
+            authUseCase.createUserWithEmailAndPassword(email, password, username).collect { res ->
                 when (res) {
                     is Resource.Success -> {
                         _uiState.update {

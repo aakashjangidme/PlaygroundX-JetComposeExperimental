@@ -28,13 +28,13 @@ import com.example.playgroundx.common.ext.fieldModifier
 import com.example.playgroundx.common.ext.spacer
 import com.example.playgroundx.common.ext.textButton
 import com.example.playgroundx.common.iconResourceId
-import com.example.playgroundx.feature.components.BasicButton
-import com.example.playgroundx.feature.components.BasicTextButton
-import com.example.playgroundx.feature.components.BasicToolbar
-import com.example.playgroundx.feature.components.EmailField
-import com.example.playgroundx.feature.components.LoadingIndicator
-import com.example.playgroundx.feature.components.PasswordField
-import com.example.playgroundx.feature.components.RepeatPasswordField
+import com.example.playgroundx.feature.composables.BasicButton
+import com.example.playgroundx.feature.composables.BasicTextButton
+import com.example.playgroundx.feature.composables.BasicToolbar
+import com.example.playgroundx.feature.composables.EmailField
+import com.example.playgroundx.feature.composables.LoadingIndicator
+import com.example.playgroundx.feature.composables.PasswordField
+import com.example.playgroundx.feature.composables.RepeatPasswordField
 import com.example.playgroundx.ui.theme.PlaygroundXJetComposeTheme
 import com.example.playgroundx.R.string as AppText
 
@@ -46,14 +46,10 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
 
-    val uiState by viewModel.uiState
-
-    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
-
-    val isLoading = uiEvents.isLoading
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SignUpScreenContent(uiState = uiState,
-        isLoading = isLoading,
+        isLoading = uiState.isLoading,
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
         onRepeatPasswordChange = viewModel::onRepeatPasswordChange,
@@ -134,7 +130,7 @@ fun SignUpScreenContent(
 @Preview(name = "Sign up light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun SignUpPreview() {
-    PlaygroundXJetComposeTheme() {
+    PlaygroundXJetComposeTheme {
         SignUpScreenContent(
             uiState = SignUpUiState(),
             isLoading = false,

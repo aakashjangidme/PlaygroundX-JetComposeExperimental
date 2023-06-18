@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.example.playgroundx.R
 import com.example.playgroundx.common.ext.basicButton
 import com.example.playgroundx.common.ext.fieldModifier
-import com.example.playgroundx.feature.components.BasicButton
-import com.example.playgroundx.feature.components.BasicField
+import com.example.playgroundx.feature.composables.BasicButton
+import com.example.playgroundx.feature.composables.BasicField
 
 @Composable
 fun EditOverlay(

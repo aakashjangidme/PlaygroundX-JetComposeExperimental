@@ -15,7 +15,7 @@ interface UserRepository {
         bio: String,
         websiteUrl: String,
         phoneNumber: String,
-    ): Flow<Resource<Boolean>>
+    ): Resource<Boolean>
 
-    suspend fun setUserProfilePicture(userid: String, imageUrl: String): Flow<Resource<Boolean>>
+    suspend fun setUserProfilePicture(userid: String, imageUrl: String): Resource<Boolean>
 }

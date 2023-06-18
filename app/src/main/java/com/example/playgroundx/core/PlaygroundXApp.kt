@@ -25,10 +25,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.playgroundx.common.Screens
-import com.example.playgroundx.util.snackbar.SnackbarManager
 import com.example.playgroundx.presentation.composables.PermissionDialog
 import com.example.playgroundx.presentation.composables.RationaleDialog
 import com.example.playgroundx.ui.theme.PlaygroundXJetComposeTheme
+import com.example.playgroundx.util.snackbar.SnackbarManager
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -66,7 +66,7 @@ fun PlaygroundXApp() {
             ) { contentPadding ->
                 NavHost(
                     navController = appState.navController,
-                    startDestination = Screens.SplashScreen.route,
+                    startDestination = Screens.PasswordManagerScreen.route,
                     modifier = Modifier.padding(contentPadding)
                 ) {
                     playgroundXNavGraph(appState)
